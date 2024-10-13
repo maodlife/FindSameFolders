@@ -61,8 +61,9 @@ void MainWindow::on_findBtn_clicked()
         QString content;
         auto result = this->solution.FindSameFolderPath();
         qDebug() << "end";
-        for (const auto &s : result) {
-            content += s + "\n";
+        for (auto [leftPtr, rightPtr] : solution.sameDirPtrPairVec) {
+            QString line = leftPtr->dirPath + "<->" + rightPtr->dirPath;
+            content += line + "\n";
         }
         return content;
     };

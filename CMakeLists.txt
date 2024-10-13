@@ -19,6 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         Solution.cpp
         Solution.h
+        MyDirData.cpp
+        MyDirData.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

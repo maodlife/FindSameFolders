@@ -1,6 +1,7 @@
 #ifndef SOLUTION_H
 #define SOLUTION_H
 
+#include "MyDirData.h"
 #include <QDir>
 #include <QtCore/qobject.h>
 #include <qstring.h>
@@ -13,15 +14,17 @@ public:
     QString folderPath2;
 
     std::vector<QString> FindSameFolderPath();
-private:
-    struct FolderDataItem{
-        QString folderPath;  // 绝对路径
-        bool isCheck = false;
-    };
+    std::vector<std::pair<std::shared_ptr<MyDirData>, std::shared_ptr<MyDirData>>> sameDirPtrPairVec;
 
-    void ConvertFolderToMap(QString relativeFolderPath, std::unordered_multimap<QString, FolderDataItem> &map);
-    void FindSameFolderPathCore(QString currFolder2Path, std::vector<QString> &result, std::unordered_multimap<QString, FolderDataItem> &map);
-    bool CheckIsSame(QString folderPathLeft, QString folderPathRight);
+private:
+    void ConverDirDataTreeToMap(
+        std::shared_ptr<MyDirData> dirDataPtr,
+        std::unordered_multimap<QString, std::shared_ptr<MyDirData>>
+            &dirName2DirDataPtr);
+    void FindSameFolderPathCore(std::shared_ptr<MyDirData> currDirPtr,
+                                std::unordered_multimap<QString, std::shared_ptr<MyDirData>>
+                                    &dirName2DirDataPtr);
+    bool CheckIsSame(std::shared_ptr<MyDirData> lhs, std::shared_ptr<MyDirData> rhs);
 };
 
 #endif // SOLUTION_H
